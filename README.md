@@ -8,6 +8,7 @@ Designed for serving map tiles stored in files with XYZ schema or MBTiles. Windo
 - [How to use](#how-to-use)
   - [Access to local Map Tiles](#access-to-local-map-tiles)
   - [Access to local MBTiles files](#access-to-local-mbtiles-files)
+- [Examples](#examples)
 
 ## Install
 
@@ -108,3 +109,48 @@ On this address you will get information about available MBTiles files:
 > | Bounds       | 23.119626693369888, 42.56456404303669, 23.559748137141618, 42.828222356154384 |
 > | Center       | 23.339687415255753, 42.69639319959553, 6                                      |
 > | URL Template | http://localhost:1886/mbtiles/default.mbtiles/{z}/{x}/{y}                     |
+
+## Examples
+
+This servер can be used from any mapping application, which supports loading of tiles with XYZ tiling scheme. Here is an example use in [QGIS](https://qgis.org/en/site/). In QGIS you can add a new XYZ Tiles source and then load it in the map.
+
+### With QGIS
+
+1. Clone this project
+2. Prepare your tiles
+3. Run the server
+4. Add a new XYZ Tile source in QGIS Browser using Python Console:
+
+```python
+title = 'Local MBTiles'
+referer = 'Tiles are loaded from Windows Tile Server Service'
+url = 'http://localhost:1886/mbtiles/default.mbtiles/{z}/{x}/{y}'
+min_zoom = 1
+max_zoom = 12
+
+prefix = "qgis/connections-xyz/{0}".format(title)
+QSettings().setValue("{0}/url".format(prefix), url)
+QSettings().setValue("{0}/referer".format(prefix), referer)
+QSettings().setValue("{0}/zmin".format(prefix), min_zoom)
+QSettings().setValue("{0}/zmax".format(prefix), max_zoom)
+
+iface.reloadConnections()
+```
+
+Or local XYZ tiles:
+
+```python
+title = 'Local Tiles'
+referer = 'Tiles are loaded from Windows Tile Server Service'
+url = 'http://localhost:1886/tiles/default/{z}/{x}/{y}'
+min_zoom = 1
+max_zoom = 10
+
+prefix = "qgis/connections-xyz/{0}".format(title)
+QSettings().setValue("{0}/url".format(prefix), url)
+QSettings().setValue("{0}/referer".format(prefix), referer)
+QSettings().setValue("{0}/zmin".format(prefix), min_zoom)
+QSettings().setValue("{0}/zmax".format(prefix), max_zoom)
+
+iface.reloadConnections()
+```

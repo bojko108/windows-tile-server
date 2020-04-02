@@ -10,7 +10,7 @@ Local tiles are located in `tiles` directory - refer to [local map tiles](tiles/
 
 MBTile files are located in `mbtiles` directory - refer to [MBTiles files](mbtiles/README.md) for more information on how to structure your MBTiles files.
 
-# Examble file structure
+# Example file structure
 
 ```
 📦public

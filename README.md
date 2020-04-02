@@ -59,6 +59,18 @@ When started, the server can be accessed on:
 
 [http://localhost:1886](http://localhost:1886)
 
+The server also provides you with the option to preview each of the available tiles by navigating to:
+
+```
+http://localhost:1886/preview/tiles/{tile name}
+```
+
+or for MBTiles:
+
+```
+http://localhost:1886/preview/mbtiles/{tile name}
+```
+
 ## Access to local Map Tiles
 
 Local tiles must be located in `public` directory. Refer to [local map tiles](public/tiles/README.md) for more information on how to structure your local tile files.
@@ -73,7 +85,7 @@ On this address you will get information about available tiles:
 >
 > This is a list of all directories, containing tiles and are served from this service:
 >
-> - default
+> - **default** - preview with Leaflet viewer
 >
 > | Property     | Value                                           |
 > | ------------ | :---------------------------------------------- |
@@ -95,7 +107,7 @@ On this address you will get information about available MBTiles files:
 >
 > This is a list of all MBTiles files, served from this service:
 >
-> - default.mbtiles
+> - **default.mbtiles** - preview with Leaflet viewer
 >
 > | Property     | Value                                                                         |
 > | ------------ | :---------------------------------------------------------------------------- |

@@ -19,6 +19,7 @@
           <li><a href="#access-to-local-mbtiles-files">Access to local MBTiles files</a></li>
         </ul>
       </li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
     <h2 id="how-to-use">How to use</h2>
     <p>When started, the server provides two options:</p>
@@ -28,19 +29,23 @@
     </ul>
     <p>When started, the server can be accessed on:</p>
     <p><a href="http://localhost:1886">http://localhost:1886</a></p>
+    <p>The server also provides you with the option to preview each of the available tiles by navigating to:</p>
+    <pre><code>http://localhost:1886/preview/tiles/{tile name}</code></pre>
+    <p>or for MBTiles:</p>
+    <pre><code>http://localhost:1886/preview/mbtiles/{tile name}</code></pre>
     <h2 id="access-to-local-map-tiles">Access to local Map Tiles</h2>
-    <p>Local map tiles can be accessed on address:</p>
-    <p><a href="http://localhost:1886/tiles">http://localhost:1886/tiles</a></p>
     <p>
       Local tiles must be located in <code>public</code> directory. Refer to <a href="public/tiles/README.md">local map tiles</a> for more information
       on how to structure your local tile files.
     </p>
+    <p>Local map tiles can be accessed on address:</p>
+    <p><a href="http://localhost:1886/tiles">http://localhost:1886/tiles</a></p>
     <p>On this address you will get information about available tiles:</p>
     <blockquote>
       <p><strong>Available directories with tiles</strong></p>
       <p>This is a list of all directories, containing tiles and are served from this service:</p>
       <ul>
-        <li>default</li>
+        <li><strong>default</strong> - preview with Leaflet viewer</li>
       </ul>
       <table>
         <thead>
@@ -68,18 +73,18 @@
       </table>
     </blockquote>
     <h2 id="access-to-local-mbtiles-files">Access to local MBTiles files</h2>
-    <p>Local MBTiles files can be accessed on address:</p>
-    <p><a href="http://localhost:1886/mbtiles">http://localhost:1886/mbtiles</a></p>
     <p>
       Local MBTiles files must be located in <code>public</code> directory. Refer to <a href="public/mbtiles/README.md">MBTiles files</a> for more
       information on how to structure your MBTiles files.
     </p>
+    <p>Local MBTiles files can be accessed on address:</p>
+    <p><a href="http://localhost:1886/mbtiles">http://localhost:1886/mbtiles</a></p>
     <p>On this address you will get information about available MBTiles files:</p>
     <blockquote>
       <p><strong>Available MBTiles files</strong></p>
       <p>This is a list of all MBTiles files, served from this service:</p>
       <ul>
-        <li>default.mbtiles</li>
+        <li><strong>default.mbtiles</strong> - preview with Leaflet viewer</li>
       </ul>
       <table>
         <thead>
@@ -136,5 +141,44 @@
         </tbody>
       </table>
     </blockquote>
+    <h2 id="examples">Examples</h2>
+    <p>
+      This servер can be used from any mapping application, which supports loading of tiles with XYZ tiling scheme. Here is an example use in
+      <a href="https://qgis.org/en/site/">QGIS</a>. In QGIS you can add a new XYZ Tiles source and then load it in the map.
+    </p>
+    <h3 id="with-qgis">With QGIS</h3>
+    <ol>
+      <li>Clone this project</li>
+      <li>Prepare your tiles</li>
+      <li>Run the server</li>
+      <li>Add a new XYZ Tile source in QGIS Browser using Python Console:</li>
+    </ol>
+    <pre><code class="language-python">title = &#39;Local MBTiles&#39;
+referer = &#39;Tiles are loaded from Windows Tile Server Service&#39;
+url = &#39;http://localhost:1886/mbtiles/default.mbtiles/{z}/{x}/{y}&#39;
+min_zoom = 1
+max_zoom = 12
+
+prefix = &quot;qgis/connections-xyz/{0}&quot;.format(title)
+QSettings().setValue(&quot;{0}/url&quot;.format(prefix), url)
+QSettings().setValue(&quot;{0}/referer&quot;.format(prefix), referer)
+QSettings().setValue(&quot;{0}/zmin&quot;.format(prefix), min_zoom)
+QSettings().setValue(&quot;{0}/zmax&quot;.format(prefix), max_zoom)
+
+iface.reloadConnections()</code></pre>
+    <p>Or local XYZ tiles:</p>
+    <pre><code class="language-python">title = &#39;Local Tiles&#39;
+referer = &#39;Tiles are loaded from Windows Tile Server Service&#39;
+url = &#39;http://localhost:1886/tiles/default/{z}/{x}/{y}&#39;
+min_zoom = 1
+max_zoom = 10
+
+prefix = &quot;qgis/connections-xyz/{0}&quot;.format(title)
+QSettings().setValue(&quot;{0}/url&quot;.format(prefix), url)
+QSettings().setValue(&quot;{0}/referer&quot;.format(prefix), referer)
+QSettings().setValue(&quot;{0}/zmin&quot;.format(prefix), min_zoom)
+QSettings().setValue(&quot;{0}/zmax&quot;.format(prefix), max_zoom)
+
+iface.reloadConnections()</code></pre>
   </body>
 </html>

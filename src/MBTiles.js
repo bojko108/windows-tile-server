@@ -28,11 +28,15 @@ module.exports = {
       const url = `http://localhost:1886/mbtiles/${info.basename || info.name}/{z}/{x}/{y}`;
       return `
 <li>
-<b>${info.basename || info.name}</b>
+<span><b>${info.basename || info.name}</b> - <a href='../preview/mbtiles/${info.basename || info.name}'>preview with Leaflet viewer</a></span>
 <div class="rTable">
   <div class="rTableRow">
     <div class="rTableHead"><strong>Property</strong></div>
     <div class="rTableHead"><strong>Value</strong></div>
+  </div>
+  <div class="rTableRow">
+    <div class="rTableCell">Preview</div>
+    <div class="rTableCell"><a href='../preview/mbtiles/${info.basename || info.name}'>with Leaflet viewer</a></div>
   </div>
   <div class="rTableRow">
     <div class="rTableCell">Version</div>
@@ -134,6 +138,11 @@ module.exports = {
         });
       });
     });
+  },
+  async getInfoAsync(mbtilesfile) {
+    const { db, info } = await this.readMBTilesDBAsync(mbtilesfile);
+    db.close();
+    return info;
   },
   getTileAsync({ z, x, y }) {
     if (!mbtilesdb) return;

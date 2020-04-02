@@ -69,6 +69,62 @@ app.get('/tiles/:tilesRoot/:z/:x/:y', (req, res) => {
   }
 });
 
+app.get('/preview/mbtiles/:mbfile', async (req, res) => {
+  try {
+    const { mbfile } = req.params;
+    const mbtilesfile = path.join(__dirname, `/public/mbtiles/${mbfile}`);
+    const info = await MBTiles.getInfoAsync(mbtilesfile);
+
+    if (info) {
+      const url = `http://localhost:1886/mbtiles/${mbfile}/{z}/{x}/{y}`;
+      let templateText = fs.readFileSync('./public/preview.html').toString();
+      templateText = templateText
+        .replace('$latitude$', info.center[1] || 0)
+        .replace('$longitude$', info.center[0] || 0)
+        .replace('$zoom$', info.center[2] || 2)
+        .replace('$url$', url)
+        .replace('$minzoom$', info.minzoom)
+        .replace('$maxzoom$', info.maxzoom);
+
+      res.type('html');
+      res.send(templateText);
+    } else {
+      res.status(404).send(`${mbfile} not found in available MBTiles`);
+    }
+  } catch (err) {
+    EventLogger.error(`app.get(/preview/mbtiles): ${err}`);
+    res.status(500).json({ error: err.toLocaleString() });
+  }
+});
+
+app.get('/preview/tiles/:directory', async (req, res) => {
+  try {
+    const { directory } = req.params;
+    const info = LocalTiles.getInfo(directory);
+
+    if (info) {
+      let templateText = fs.readFileSync('./public/preview.html').toString();
+      const url = `http://localhost:1886/tiles/${directory}/{z}/{x}/{y}`;
+
+      templateText = templateText
+        .replace('$latitude$', 0)
+        .replace('$longitude$', 0)
+        .replace('$zoom$', 2)
+        .replace('$url$', url)
+        .replace('$minzoom$', info.minZoom)
+        .replace('$maxzoom$', info.maxZoom);
+
+      res.type('html');
+      res.send(templateText);
+    } else {
+      res.status(404).send(`${directory} not found in available tiles`);
+    }
+  } catch (err) {
+    EventLogger.error(`app.get(/preview/mbtiles): ${err}`);
+    res.status(500).json({ error: err.toLocaleString() });
+  }
+});
+
 app.get('*', (req, res) => {
   res.sendFile('info.html', { root: path.join(__dirname, '/public') });
 });
@@ -76,5 +132,4 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   const message = `\n${title} (v${version})\nUp and running on: http://localhost:${port}\n\n${description}\n`;
   EventLogger.info(message);
-  console.log(message);
 });

@@ -23,14 +23,21 @@ module.exports = {
       };
     });
   },
+  getInfo(directory) {
+    return this.getAvailableTiles().filter(d => d.name === directory)[0];
+  },
   getInfoAsHtml(title) {
     let directories = this.getAvailableTiles();
     const asHtml = info => {
       const url = `http://localhost:1886/tiles/${info.name}/{z}/{x}/{y}`;
       return `
 <li>
-<b>${info.name}</b>
+<span><b>${info.name}</b> - <a href='../preview/tiles/${info.name}'>preview with Leaflet viewer</a></span>
 <div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableCell">Preview</div>
+    <div class="rTableCell"><a href='../preview/tiles/${info.name}'>with Leaflet viewer</a></div>
+  </div>
   <div class="rTableRow">
     <div class="rTableHead"><strong>Property</strong></div>
     <div class="rTableHead"><strong>Value</strong></div>

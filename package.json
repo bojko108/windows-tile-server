@@ -1,0 +1,32 @@
+{
+  "name": "windows-tile-server",
+  "title": "Windows Tile Server",
+  "version": "1.0.0",
+  "description": "Designed for serving map tiles stored in files with XYZ schema or MBTiles",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "install": "node win_service/install.js",
+    "uninstall": "node win_service/uninstall.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bojko108/windows-tile-server.git"
+  },
+  "keywords": [
+    "openlayers",
+    "esri",
+    "styles"
+  ],
+  "author": "bojko108 <bojko108@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bojko108/windows-tile-server/issues"
+  },
+  "homepage": "https://github.com/bojko108/windows-tile-server",
+  "dependencies": {
+    "@mapbox/mbtiles": "^0.11.0",
+    "express": "^4.17.1",
+    "node-windows": "^1.0.0-beta.1"
+  }
+}

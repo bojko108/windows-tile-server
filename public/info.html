@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" ng-strict-di>
+  <head>
+    <title>Windows Tile Server</title>
+  </head>
+  <body>
+    <h1 id="windows-tile-server">Windows Tile Server</h1>
+    <h3 id="windows-tile-server-v">v1.0.0</h3>
+    <p>
+      Designed for serving map tiles stored in files with XYZ schema or MBTiles. Windows Tile Server can be used as a HTTP server. When the server is
+      running you can access the tiles from different mapping applications.
+    </p>
+    <h2 id="contents">Contents</h2>
+    <ul>
+      <li>
+        <a href="#how-to-use">How to use</a>
+        <ul>
+          <li><a href="#access-to-local-map-tiles">Access to local Map Tiles</a></li>
+          <li><a href="#access-to-local-mbtiles-files">Access to local MBTiles files</a></li>
+        </ul>
+      </li>
+    </ul>
+    <h2 id="how-to-use">How to use</h2>
+    <p>When started, the server provides two options:</p>
+    <ul>
+      <li>Access to local Map Tiles <a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">Slippy Map</a></li>
+      <li>Access to local <a href="https://github.com/mapbox/mbtiles-spec">MBTiles files</a></li>
+    </ul>
+    <p>When started, the server can be accessed on:</p>
+    <p><a href="http://localhost:1886">http://localhost:1886</a></p>
+    <h2 id="access-to-local-map-tiles">Access to local Map Tiles</h2>
+    <p>Local map tiles can be accessed on address:</p>
+    <p><a href="http://localhost:1886/tiles">http://localhost:1886/tiles</a></p>
+    <p>
+      Local tiles must be located in <code>public</code> directory. Refer to <a href="public/tiles/README.md">local map tiles</a> for more information
+      on how to structure your local tile files.
+    </p>
+    <p>On this address you will get information about available tiles:</p>
+    <blockquote>
+      <p><strong>Available directories with tiles</strong></p>
+      <p>This is a list of all directories, containing tiles and are served from this service:</p>
+      <ul>
+        <li>default</li>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th align="left">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Min Zoom</td>
+            <td align="left">1</td>
+          </tr>
+          <tr>
+            <td>Max Zoom</td>
+            <td align="left">10</td>
+          </tr>
+          <tr>
+            <td>URL Template</td>
+            <td align="left">
+              <a href="http://localhost:1886/tiles/default/%7Bz%7D/%7Bx%7D/%7By%7D">http://localhost:1886/tiles/default/{z}/{x}/{y}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <h2 id="access-to-local-mbtiles-files">Access to local MBTiles files</h2>
+    <p>Local MBTiles files can be accessed on address:</p>
+    <p><a href="http://localhost:1886/mbtiles">http://localhost:1886/mbtiles</a></p>
+    <p>
+      Local MBTiles files must be located in <code>public</code> directory. Refer to <a href="public/mbtiles/README.md">MBTiles files</a> for more
+      information on how to structure your MBTiles files.
+    </p>
+    <p>On this address you will get information about available MBTiles files:</p>
+    <blockquote>
+      <p><strong>Available MBTiles files</strong></p>
+      <p>This is a list of all MBTiles files, served from this service:</p>
+      <ul>
+        <li>default.mbtiles</li>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th align="left">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Version</td>
+            <td align="left">1.1</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td align="left">BG</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td align="left">overlay</td>
+          </tr>
+          <tr>
+            <td>Format</td>
+            <td align="left">png</td>
+          </tr>
+          <tr>
+            <td>Min Zoom</td>
+            <td align="left">1</td>
+          </tr>
+          <tr>
+            <td>Max Zoom</td>
+            <td align="left">12</td>
+          </tr>
+          <tr>
+            <td>Scheme</td>
+            <td align="left">xyz</td>
+          </tr>
+          <tr>
+            <td>Bounds</td>
+            <td align="left">23.119626693369888, 42.56456404303669, 23.559748137141618, 42.828222356154384</td>
+          </tr>
+          <tr>
+            <td>Center</td>
+            <td align="left">23.339687415255753, 42.69639319959553, 6</td>
+          </tr>
+          <tr>
+            <td>URL Template</td>
+            <td align="left">
+              <a href="http://localhost:1886/mbtiles/default.mbtiles/%7Bz%7D/%7Bx%7D/%7By%7D"
+                >http://localhost:1886/mbtiles/default.mbtiles/{z}/{x}/{y}</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+  </body>
+</html>

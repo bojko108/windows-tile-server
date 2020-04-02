@@ -1,0 +1,7 @@
+.vscode/
+daemon/
+node_modules/
+public/mbtiles/*
+public/tiles/*
+!public/mbtiles/README.md
+!public/tiles/README.md

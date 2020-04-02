@@ -124,7 +124,7 @@ On this address you will get information about available MBTiles files:
 
 ## Examples
 
-This servер can be used from any mapping application, which supports loading of tiles with XYZ tiling scheme. Here is an example use in [QGIS](https://qgis.org/en/site/). In QGIS you can add a new XYZ Tiles source and then load it in the map.
+This servеr can be used from any mapping application, which supports loading of tiles with XYZ tiling scheme. Here is an example use in [QGIS](https://qgis.org/en/site/). In QGIS you can add a new XYZ Tiles source and then load it in the map.
 
 ### With QGIS
 

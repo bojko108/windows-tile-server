@@ -107,12 +107,12 @@ app.get('/preview/tiles/:directory', async (req, res) => {
       const url = `http://localhost:1886/tiles/${directory}/{z}/{x}/{y}`;
 
       templateText = templateText
-        .replace('$latitude$', 0)
-        .replace('$longitude$', 0)
-        .replace('$zoom$', 2)
-        .replace('$url$', url)
-        .replace('$minzoom$', info.minZoom)
-        .replace('$maxzoom$', info.maxZoom);
+        .replace(/{{latitude}}/g, 0)
+        .replace(/{{longitude}}/g, 0)
+        .replace(/{{zoom}}/g, 2)
+        .replace(/{{url}}/g, url)
+        .replace(/{{minzoom}}/g, info.minZoom)
+        .replace(/{{maxzoom}}/g, info.maxZoom);
 
       res.type('html');
       res.send(templateText);

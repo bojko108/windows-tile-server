@@ -79,12 +79,12 @@ app.get('/preview/mbtiles/:mbfile', async (req, res) => {
       const url = `http://localhost:1886/mbtiles/${mbfile}/{z}/{x}/{y}`;
       let templateText = fs.readFileSync('./public/preview.html').toString();
       templateText = templateText
-        .replace('$latitude$', info.center[1] || 0)
-        .replace('$longitude$', info.center[0] || 0)
-        .replace('$zoom$', info.center[2] || 2)
-        .replace('$url$', url)
-        .replace('$minzoom$', info.minzoom)
-        .replace('$maxzoom$', info.maxzoom);
+        .replace(/{{latitude}}/g, info.center[1] || 0)
+        .replace(/{{longitude}}/g, info.center[0] || 0)
+        .replace(/{{zoom}}/g, info.center[2] || 2)
+        .replace(/{{url}}/g, url)
+        .replace(/{{minzoom}}/g, info.minzoom)
+        .replace(/{{maxzoom}}/g, info.maxzoom);
 
       res.type('html');
       res.send(templateText);

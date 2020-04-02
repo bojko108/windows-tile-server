@@ -35,10 +35,6 @@ module.exports = {
     <div class="rTableHead"><strong>Value</strong></div>
   </div>
   <div class="rTableRow">
-    <div class="rTableCell">Preview</div>
-    <div class="rTableCell"><a href='../preview/mbtiles/${info.basename || info.name}'>with Leaflet viewer</a></div>
-  </div>
-  <div class="rTableRow">
     <div class="rTableCell">Version</div>
     <div class="rTableCell">${info.version}</div>
   </div>

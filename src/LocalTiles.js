@@ -6,30 +6,39 @@ module.exports = {
     const tilesdirectory = path.join(__dirname, '../public/tiles');
     const directories = fs
       .readdirSync(tilesdirectory, { withFileTypes: true })
-      .filter(dir => dir.isDirectory())
-      .map(dir => dir.name);
+      .filter((dir) => dir.isDirectory())
+      .map((dir) => dir.name);
 
-    return directories.map(directory => {
+    return directories.map((directory) => {
       const zoomLevels = fs
         .readdirSync(path.join(tilesdirectory, directory), { withFileTypes: true })
-        .filter(dir => dir.isDirectory())
-        .map(dir => Number(dir.name))
+        .filter((dir) => dir.isDirectory())
+        .map((dir) => Number(dir.name))
         .sort((a, b) => a - b);
 
       return {
         name: directory,
-        minZoom: zoomLevels[0],
-        maxZoom: zoomLevels[zoomLevels.length - 1]
+        minzoom: zoomLevels[0],
+        maxzoom: zoomLevels[zoomLevels.length - 1],
       };
     });
   },
   getInfo(directory) {
-    return this.getAvailableTiles().filter(d => d.name === directory)[0];
+    return this.getAvailableTiles().filter((d) => d.name === directory)[0];
   },
   getInfoAsHtml(title) {
     let directories = this.getAvailableTiles();
-    const asHtml = info => {
+    const asHtml = (info) => {
       const url = `http://localhost:1886/tiles/${info.name}/{z}/{x}/{y}`;
+      const qgisText = `<pre class="code"><code class="language-python"># open python console and run:
+
+prefix = "qgis/connections-xyz/{0}".format('${info.description || info.name}')
+QSettings().setValue("{0}/url".format(prefix), '${url}')
+QSettings().setValue("{0}/referer".format(prefix), 'Tiles are loaded from Windows Tile Server Service')
+QSettings().setValue("{0}/zmin".format(prefix), ${info.minzoom})
+QSettings().setValue("{0}/zmax".format(prefix), ${info.maxzoom})
+iface.reloadConnections()</code></pre>`;
+
       return `
 <li>
 <span><b>${info.name}</b> - <a href='../preview/tiles/${info.name}'>preview with Leaflet viewer</a></span>
@@ -40,27 +49,32 @@ module.exports = {
   </div>
   <div class="rTableRow">
     <div class="rTableCell">Min Zoom</div>
-    <div class="rTableCell">${info.minZoom}</div>
+    <div class="rTableCell">${info.minzoom}</div>
   </div>
   <div class="rTableRow">
     <div class="rTableCell">Max Zoom</div>
-    <div class="rTableCell">${info.maxZoom}</div>
+    <div class="rTableCell">${info.maxzoom}</div>
   </div>
   <div class="rTableRow">
     <div class="rTableCell">URL Template</div>
     <div class="rTableCell"><a href='${url}'>${url}</a></div>
   </div>
+  <div class="rTableRow">
+    <div class="rTableCell">For use in QGIS</div>
+    <div class="rTableCell">${qgisText}</div>
+  </div>
 </div>
 </li>`;
     };
-    directories = directories.map(info => asHtml(info)).join('');
+    directories = directories.map((info) => asHtml(info)).join('');
     const html = `
 <!DOCTYPE html>
 <html lang="en" ng-strict-di>
 <head>
     <title>${title}</title>
     <style>
-      .rTable { display: table; padding: 10px }
+      .code { background: whitesmoke; padding: 10px; margin: 10px }
+      .rTable { display: table; padding: 10px; width: 95% }
       .rTableRow { display: table-row; }
       .rTableHead { display: table-header-group; background-color: #dddddd; }
       .rTableBody { display: table-row-group; }
@@ -94,5 +108,5 @@ module.exports = {
     if (fs.existsSync(tilePath)) {
       return tilePath;
     }
-  }
+  },
 };

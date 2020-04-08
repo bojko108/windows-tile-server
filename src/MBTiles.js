@@ -10,8 +10,8 @@ module.exports = {
     const mbtilesdirectory = path.join(__dirname, '../public/mbtiles');
     const files = fs
       .readdirSync(mbtilesdirectory, { withFileTypes: true })
-      .filter(f => f.isFile() && f.name.indexOf('.mbtiles') > -1)
-      .map(f => path.join(mbtilesdirectory, f.name));
+      .filter((f) => f.isFile() && f.name.indexOf('.mbtiles') > -1)
+      .map((f) => path.join(mbtilesdirectory, f.name));
 
     let result = [];
     for (let i = 0; i < files.length; i++) {
@@ -24,8 +24,17 @@ module.exports = {
   },
   async getInfoAsHtmlAsync(title) {
     let files = await this.getAvailableMBTilesFilesAsync();
-    const asHtml = info => {
+    const asHtml = (info) => {
       const url = `http://localhost:1886/mbtiles/${info.basename || info.name}/{z}/{x}/{y}`;
+      const qgisText = `<pre class="code"><code class="language-python"># open python console and run:
+
+prefix = "qgis/connections-xyz/{0}".format('${info.description || info.name}')
+QSettings().setValue("{0}/url".format(prefix), '${url}')
+QSettings().setValue("{0}/referer".format(prefix), 'Tiles are loaded from Windows Tile Server Service')
+QSettings().setValue("{0}/zmin".format(prefix), ${info.minzoom})
+QSettings().setValue("{0}/zmax".format(prefix), ${info.maxzoom})
+iface.reloadConnections()</code></pre>`;
+
       return `
 <li>
 <span><b>${info.basename || info.name}</b> - <a href='../preview/mbtiles/${info.basename || info.name}'>preview with Leaflet viewer</a></span>
@@ -74,18 +83,23 @@ module.exports = {
     <div class="rTableCell">URL Template</div>
     <div class="rTableCell"><a href='${url}'>${url}</a></div>
   </div>
+  <div class="rTableRow">
+    <div class="rTableCell">For use in QGIS</div>
+    <div class="rTableCell">${qgisText}</div>
+  </div>
 </div>
 </li>`;
     };
 
-    files = files.map(f => asHtml(f)).join('');
+    files = files.map((f) => asHtml(f)).join('');
     const html = `
 <!DOCTYPE html>
 <html lang="en" ng-strict-di>
 <head>
     <title>${title}</title>
     <style>
-      .rTable { display: table; padding: 10px }
+      .code { background: whitesmoke; padding: 10px; margin: 10px }
+      .rTable { display: table; padding: 10px; width: 95% }
       .rTableRow { display: table-row; }
       .rTableHead { display: table-header-group; background-color: #dddddd; }
       .rTableBody { display: table-row-group; }
@@ -159,5 +173,5 @@ module.exports = {
         yes(data);
       });
     });
-  }
+  },
 };

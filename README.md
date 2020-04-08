@@ -2,6 +2,8 @@
 
 Designed for serving map tiles stored in files with XYZ schema or MBTiles. Windows Tile Server can be used as a HTTP server. When the server is running you can access the tiles from different mapping applications.
 
+Simmilar map tiles server is available for Android - [Mobile Tile Server](https://github.com/bojko108/mobile-tile-server).
+
 ## Contents
 
 - [Install](#install)

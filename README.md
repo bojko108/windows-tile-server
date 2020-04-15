@@ -17,7 +17,7 @@ Simmilar map tiles server is available for Android - [Mobile Tile Server](https:
 1. Clone:
 
 ```
-git clone https://github.com/bojko108/mobile-tile-server.git
+git clone https://github.com/bojko108/windows-tile-server.git
 ```
 
 or:

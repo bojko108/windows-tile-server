@@ -759,10 +759,10 @@ node-gyp@8.x:
     tar "^6.1.2"
     which "^2.0.2"
 
-node-windows@^1.0.0-beta.1:
-  version "1.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/node-windows/-/node-windows-1.0.0-beta.1.tgz#a3442389c2981a5f504777172a50c912c5df2e6b"
-  integrity sha512-wWAM7zRvu4ZrBGsEI+7oGcoGr5jEeHgxzdx4DNEFddK/gh1yOsy782nCcShjOZ4Kffy8zDfmCw0Femxvib/5Rw==
+node-windows@^1.0.0-beta.6:
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/node-windows/-/node-windows-1.0.0-beta.6.tgz#04bf66946760bb8507f1d1326267587b56b8c8b3"
+  integrity sha512-Ehig70tF9A9Wns4VMpnsvT7dyat/d2fio6C4g1RAEaAi+piAjN6Wc+/fdSOifl8YCCncVllijv5Q9wdyHvdgeA==
   dependencies:
     optimist "~0.6.0"
     xml "0.0.12"

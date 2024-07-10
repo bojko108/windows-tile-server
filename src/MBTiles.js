@@ -10,7 +10,7 @@ module.exports = {
     const mbtilesdirectory = path.join(__dirname, '../public/mbtiles');
     const files = fs
       .readdirSync(mbtilesdirectory, { withFileTypes: true })
-      .filter((f) => f.isFile() && f.name.indexOf('.mbtiles') > -1)
+      .filter((f) => f.isFile() && f.name.endsWith('.mbtiles') > -1)
       .map((f) => path.join(mbtilesdirectory, f.name));
 
     let result = [];
@@ -167,6 +167,7 @@ iface.reloadConnections()</code></pre>`;
     if (y < 0) {
       y = Math.pow(2, z) - Math.abs(y) - 1;
     }
+
 
     return new Promise((yes, no) => {
       mbtilesdb.getTile(z, x, y, (err, data, headers) => {

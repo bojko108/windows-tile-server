@@ -10,7 +10,7 @@ module.exports = {
     const mbtilesdirectory = path.join(__dirname, '../public/mbtiles');
     const files = fs
       .readdirSync(mbtilesdirectory, { withFileTypes: true })
-      .filter((f) => f.isFile() && f.name.endsWith('.mbtiles') > -1)
+      .filter((f) => f.isFile() && f.name.endsWith('.mbtiles'))
       .map((f) => path.join(mbtilesdirectory, f.name));
 
     let result = [];

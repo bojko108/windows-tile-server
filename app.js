@@ -31,6 +31,11 @@ app.get('/mbtiles/:file/:z/:x/:y', async (req, res) => {
       await MBTiles.prepareMBTilesDBAsync(mbtilesfile);
       const tile = await MBTiles.getTileAsync(req.params);
       if (tile) {
+        const info = await MBTiles.getInfoAsync(mbtilesfile);
+        if (info.format == 'pbf') {
+          res.setHeader('Content-Type', 'application/octet-stream');
+          res.setHeader('Content-Encoding', 'gzip');
+        }
         res.send(tile);
       } else {
         res.sendFile(NO_TILE, { root: path.join(__dirname, '/public') });

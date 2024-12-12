@@ -26,7 +26,7 @@
   "homepage": "https://github.com/bojko108/windows-tile-server",
   "dependencies": {
     "@mapbox/mbtiles": "^0.12.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "node-windows": "^1.0.0-beta.6"
   }
 }
